@@ -53,6 +53,10 @@ export const weekCount = derived(stats, ($stats) => {
 	return count;
 });
 
+export const totalCount = derived(stats, ($stats) =>
+	Object.values($stats).reduce((sum, value) => sum + value, 0)
+);
+
 if (browser) {
 	stats.subscribe((value) => localStorage.setItem('pomodoro-stats', JSON.stringify(value)));
 }

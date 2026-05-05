@@ -40,6 +40,7 @@
 		stats,
 		todayCount,
 		weekCount,
+		totalCount,
 		startTimer as startTimerFn,
 		pauseTimer as pauseTimerFn,
 		tickTimer,
@@ -52,6 +53,7 @@
 
 	let intervalId: ReturnType<typeof setInterval> | null = null;
 	let startSound: HTMLAudioElement;
+	let pauseSound: HTMLAudioElement;
 	let endSound: HTMLAudioElement;
 	let newTaskText = $state('');
 	let drawerOpen = $state(false);
@@ -59,6 +61,7 @@
 	onMount(() => {
 		startSound = new Audio('/sounds/start.mp3');
 		endSound = new Audio('/sounds/end.mp3');
+		pauseSound = new Audio('/sounds/pause.mp3');
 		updateVolumes();
 
 		const handleKey = (e: KeyboardEvent) => {
@@ -107,6 +110,7 @@
 	function pauseTimer() {
 		if (intervalId) clearInterval(intervalId);
 		intervalId = null;
+		if ($settings.soundEnabled) pauseSound?.play();
 		pauseTimerFn();
 	}
 
@@ -148,7 +152,7 @@
 
 	function resetTimer() {
 		pauseTimer();
-		resetTimerFn();
+		resetTimerFn($settings.pomodoroDuration);
 	}
 
 	function skipBreak() {
@@ -282,8 +286,8 @@
 			</div>
 			<div class="stat-card">
 				<!-- <Coffee class="h-5 w-5" /> -->
-				<span class="stat-value">{$timer.pomodoroCount}</span>
-				<span class="stat-label">Session</span>
+				<span class="stat-value">{$totalCount}</span>
+				<span class="stat-label">All time</span>
 			</div>
 		</section>
 

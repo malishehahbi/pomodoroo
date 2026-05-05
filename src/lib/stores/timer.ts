@@ -55,8 +55,9 @@ export function toggleTimerMode() {
 	}));
 }
 
-export function resetTimer() {
-	timer.set({ time: DEFAULT_POMODORO, isRunning: false, isBreak: false, pomodoroCount: 0 });
+export function resetTimer(durationMinutes: number = DEFAULT_POMODORO / 60) {
+	const nextTime = Math.max(1, Math.floor(durationMinutes)) * 60;
+	timer.set({ time: nextTime, isRunning: false, isBreak: false, pomodoroCount: 0 });
 }
 
 export function setBreakDuration(duration: number) {
