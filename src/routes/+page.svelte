@@ -145,7 +145,7 @@
 			setBreakDuration($settings.longBreakDuration);
 			toast.info(`Time for a long break!`);
 		} else {
-			toggleTimerMode();
+			toggleTimerMode($settings.pomodoroDuration, $settings.breakDuration);
 		}
 		pauseTimerFn();
 	}
@@ -157,7 +157,7 @@
 
 	function skipBreak() {
 		pauseTimer();
-		toggleTimerMode();
+		toggleTimerMode($settings.pomodoroDuration, $settings.breakDuration);
 		setWorkDuration($settings.pomodoroDuration);
 		toast.info('Skipped break, starting work session');
 	}

@@ -47,11 +47,15 @@ export function tickTimer() {
 	timer.update((s) => ({ ...s, time: Math.max(0, s.time - 1) }));
 }
 
-export function toggleTimerMode() {
+export function toggleTimerMode(
+	workMinutes: number = DEFAULT_POMODORO / 60,
+	breakMinutes: number = DEFAULT_BREAK / 60
+) {
+	const toSeconds = (minutes: number) => Math.max(1, Math.round(minutes * 60));
 	timer.update((s) => ({
 		...s,
 		isBreak: !s.isBreak,
-		time: s.isBreak ? DEFAULT_POMODORO : DEFAULT_BREAK
+		time: s.isBreak ? toSeconds(workMinutes) : toSeconds(breakMinutes)
 	}));
 }
 
