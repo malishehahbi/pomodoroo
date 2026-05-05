@@ -56,7 +56,7 @@ export function toggleTimerMode() {
 }
 
 export function resetTimer(durationMinutes: number = DEFAULT_POMODORO / 60) {
-	const nextTime = Math.max(1, Math.floor(durationMinutes)) * 60;
+	const nextTime = Math.max(1, Math.round(durationMinutes * 60));
 	timer.set({ time: nextTime, isRunning: false, isBreak: false, pomodoroCount: 0 });
 }
 
